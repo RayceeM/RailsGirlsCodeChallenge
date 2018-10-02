@@ -1,0 +1,330 @@
+<html lang="en">
+<title>Dolphine</title>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  	 .jumbotron{
+     background-color: #0d47a1;
+      color:#ffffff;
+      padding-top:100px;
+      padding-bottom:200px;
+       }
+
+      body{
+        font:400  15px "Montserrat",sans-serif;
+        line-height:2.0;
+
+      }
+      h2{
+        font-size:24px;
+        color:#000000;
+        font-weight:600;
+        margin-bottom:25px;
+      }
+
+      h4{
+      font-size:18px;
+        color:#000000;
+        font-weight:400;
+        margin-bottom:25px;
+      }
+      h3{
+        font-size:18px;
+        color:#000000;
+        font-weight:800;
+        margin-bottom:25px;
+      }
+      button{
+           margin:5px;
+           padding:100px;
+      }
+
+.container-fluid{
+  padding:30px 50px;
+}
+.errors{
+  color:#f44336;
+}
+#myBtn{
+  display:none;
+  position:fixed;
+  bottom:10px;
+  right:20px;
+  z-index:99;
+  border:none;
+  outline:none;
+  background-color:#0d47a1;
+  color:#fff;
+  padding:15px;
+  font-size:20px; 
+  border-radius:10px;
+}
+ .navbar{
+    margin-bottom:0;
+    background-color: #0d47a1;
+    z-index:9999;
+    border:0;
+    font-size:12px !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+  }
+  .navbar li a, .navbar .navbar-brand {
+      color: #fff !important;
+  }
+  .navbar-nav li a:hover, .navbar-nav li.active a {
+      color: #0d47a1 !important;
+      background-color: #fff !important;
+  }
+  .navbar-default .navbar-toggle {
+      border-color: transparent;
+      color: #fff !important;
+  }
+  .slideanim{visibility:hidden;}
+  .slide{
+    animation-name: slide;
+    -webkit-animation-name: slide;
+    animation-duration: 1s;
+    -webkit-animation-duration:1s;
+    visibility:visible;
+  }
+  @keyframes slide{
+    0%{
+      opacity:0;
+      transform:translateY(70%);
+    }
+    100%{
+      opacity:1;
+      transform: translateY(0%);
+    }
+  }
+  @-webkit-keyframes slide{
+    0%{
+      opacity: 0;
+      -webkit-transform:translateY(70%);
+    }
+    100%{
+      opacity: 1;
+      -webkit-transform:translateY(0%);
+    }
+  }
+  @media screen and (max-width: 768px){
+    .col-sm-4{
+      text-align: center;
+      margin: 25px 0;
+    }
+  }
+  </style>
+
+</head>
+<body id="login" data-spy="scroll" data-target=".navbar" data-offset="60">
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBar">
+					<span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+			</div>
+			<div class="collapse navbar-collapse" id="Navbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#about">ABOUT</a></li>
+					<li><a href="#contact">CONTACT</a></li>    
+				</ul>
+			</div>
+		</div>
+	</nav>
+		
+
+ <div class="jumbotron text-center">
+  <%=image_tag("logo.jpeg")%>
+	<h1>Dolphine</h1>
+	<p>Bulk messages got nothing on us!</p>
+
+  <!--log in modal-->
+	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#login-modal">LOG IN</button>
+  <div class="modal fade" id="login-modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="loginmodal-container">
+      <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+         <h4 class="modal-title">Login to your account</h4>
+          </div>
+      <form action="/sessions" method="POST">
+    <div class="form-group">
+      <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="login[email]">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="login[password]">
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" name="remember"> Remember me</label>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+  <!--login error flash-->
+ <div class="errors">
+  <% if flash[:login_errors]%>
+    <% flash[:login_errors].each do |error| %>
+      <p><%=error%></p>
+    <%end%>
+  <%end%>
+ </div>
+ 
+    </div>
+  </div>
+ </div>
+
+ <!--sign up modal-->
+	 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#signup-modal">SIGN UP</button>
+   <div class="modal fade" id="signup-modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="loginmodal-container">
+      <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+         <h4 class="modal-title">New member</h4>
+          </div>
+      <form action="/users" method="POST">
+        <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+    <div class="form-group">
+      <label for="fname">First Name:</label>
+      <input type="text" class="form-control" id="fname" placeholder="Enter first names" name="user[fname]">
+    </div>
+    <div class="form-group">
+      <label for="lname">Last Name:</label>
+      <input type="text" class="form-control" id="lname" placeholder="Enter last name" name="user[lname]"> 
+    </div>
+     <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="user[email]">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="user[password]">
+    </div>
+     <div class="form-group">
+      <label for="confirmpwd">Confirm Password:</label>
+      <input type="password" class="form-control" id="confirmpwd" placeholder="Re-type password" name="user[password_confirmation]">
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" name="remember"> Remember me</label>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+    <!--register error flash-->
+ <div class="errors">
+  <% if flash[:register_errors]%>
+    <% flash[:register_errors].each do |error| %>
+      <p><%=error%></p>
+    <%end%>
+  <%end%>
+ </div>
+
+    </div>
+  </div>
+ </div>
+
+ </div>
+
+ <!--About-->
+ <div id="about" class="container-fluid">
+ 	<div class="row">
+ 		<div class="col-sm-12">
+ 			<h2 class="text-center">OUR STORY</h2>
+ 			<p>Dolphin App is an instant way to send bulk SMS to your contact of choice regardless of where they are.Simply select your contact of choice and add your message.We will take care of the rest<p/>
+ 				<p>Dolphine has grown to be a leading SMS service provider within the telecommunication industry in Kenya. Ran with a team of young, ambitious and determined people, our goal is to help individuals,businesses and organizations to achieve their maximum potentials by growing their mobile audience, connect better with customers, and catapult their businesses or organizations using bulk SMS messaging. Give us a call to learn more.</p>
+ 		</div>
+ 	</div>
+ </div>
+
+ <!--Contact section-->
+ <div id="contact" class="container-fluid">
+  <h2 class="text-center">CONTACT</h2> 
+  <div class="row">
+    <div class="col-sm-4">
+      <h3>Get in touch with us</h3>
+      <p><span class="glyphicon glyphicon-map-marker"></span> Majengo,Mombasa Kenya</p>
+      <p><span class="glyphicon glyphicon-phone"></span> +254 7532657</p>
+      <p><span class="glyphicon glyphicon-envelope"></span> mwatelaraycee33@gmail.com</p>
+    </div>
+      <div class="col-sm-6 slideanim">
+        <div class="row">
+          <div class="col-sm-6 form-group">
+           <form action="https://formspree.io/mwatelaraycee33@gmail.com"
+      method="POST">
+            <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+          </div>
+           <div class="col-sm-6 form-group">
+            <input class="form-control" id="email" name="_replyto" placeholder="Email" type="email" required>
+          </div>
+            <textarea class="form-control" id="comment" name="comment" placeholder="Comment" rows="5"></textarea><br>
+
+            <input class="hidden" type="text" name="_gotcha" style="display:none">
+            <input class="hidden" type="hidden" name="_subject" value="Message via http://domain.com">
+            <div class="row">
+                <button class="btn btn-default pull-right" type="submit">Send</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+ </div>
+
+<button onclick="topFunction()" id="myBtn" title="Go to top">
+	<span class="glyphicon glyphicon-menu-up"></span></button>
+
+   <!--FOOTER-->
+  <footer class="container-fluid text-center">
+  <a href ="#login" title="To Top">
+    <p>All rights reserved@2018|<strong>By Raycee</strong></p>
+  </a>
+</footer>
+<script>
+  $(document).ready(function(){
+  $(".navbar a,footer a[href='#login']").on('click',function(event){
+  if(this.has!==""){
+  event.preventDefault();
+
+  var hash = this.hash;
+
+  $('html,body').animate({
+  scrollTop: $(hash).offset().top
+},900, function(){
+  
+  window.location.hash = hash;
+ });
+} //end if
+});
+$(window).scroll(function() {
+    $(".slideanim").each(function(){
+      var pos = $(this).offset().top;
+
+      var winTop = $(window).scrollTop();
+        if (pos < winTop + 600) {
+          $(this).addClass("slide");
+         }
+      });
+  });
+})
+
+  window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("myBtn").style.display = "block";
+    } else {
+        document.getElementById("myBtn").style.display = "none";
+    }
+}
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+
+</script>
+</body>
+</html>

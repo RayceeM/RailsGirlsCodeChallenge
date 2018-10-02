@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+  <title>Doplhine</title>
+  <style>
+  .navbar{
+     background-color: #0d47a1;
+  }
+  .nav{
+    margin-right:20px;
+  }
+  .form-group{
+    padding-top:30px;
+    padding-left:15px;
+    padding-bottom: 15px;
+  }
+   .glyphicon-log-out{
+    font-size: 15px;
+    color:#fff !important;
+  }
+  </style>
+
+</head>
+<body>
+	<body>
+<nav class="navbar navbar-default">
+  <div class="row">
+    <div class="navbar-header">
+      <%= image_tag("logo.jpeg", :size => "100x70")%>
+    </div>
+  </div>
+</nav>
+<div class="form-bigbox">
+	<div class="form-box">
+		<%= render 'recipients'%>
+	</div>
+</div>
+</body>
+</html>

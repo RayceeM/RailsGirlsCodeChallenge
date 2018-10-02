@@ -1,0 +1,42 @@
+<style>
+.vertical-center{
+	 padding-left:300px;
+}
+.message_body{
+	height:200px;
+	width:500px;
+}
+#stream_item{
+	display:inline-block;
+}
+.list-group-item{
+	padding:15px;
+	margin:20px;
+}
+
+}
+</style>
+
+<div class="container vertical-center">
+ <div id ="stream">
+	<%= form_for :message, url:messages_path do |f| %>
+	<%= f.text_area :body, id: "url", placeholder: "Message", class: "message_body" %>
+	<div id="stream-list" class="follow-list">
+		<ul>
+			<% @recipients.each do |contact| %>
+				<li id="stream_item">
+					<label for="user<%=contact.id%>" >
+					<span class="list-group-item"><%= contact.name %></span><%= check_box_tag "message[user_tokens][]",contact.id, @message.users.include?(contact), id: "user#{contact.id}" %>
+			   </li>
+			</label>
+			<br>
+			<% end %>
+		</ul>
+	</div>
+	<div class="stream-footer">
+		<%= f.button :submit, class: "btn btn-success" %>
+		<% end %>
+	</div>
+	
+ </div>	
+</div>

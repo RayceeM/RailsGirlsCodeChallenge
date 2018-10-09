@@ -17,6 +17,10 @@
     font-size: 15px;
     color:#fff !important;
   }
+   .navbar-brand{
+    color: #fff !important;
+    font:400 26px "Montserrat",sans-serif;
+  }
   </style>
 
 </head>
@@ -26,6 +30,7 @@
     <div class="navbar-header">
       <%= image_tag("logo.jpeg", :size => "100x70")%>
     </div>
+     <a class="navbar-brand" href="#">Dolphine</a>
     <ul class="nav navbar-nav navbar-right">
       <li>
           <%=link_to " Log Out", sessions_path("current"), method: "delete", class: "glyphicon glyphicon-log-out"%>

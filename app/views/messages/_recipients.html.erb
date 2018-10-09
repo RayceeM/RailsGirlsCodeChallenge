@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 .vertical-center{
 	 padding-left:300px;
@@ -7,26 +8,31 @@
 	width:500px;
 }
 #stream_item{
-	display:inline-block;
+	display:inline;
+	margin: 0; 
 }
 .list-group-item{
 	padding:15px;
-	margin:20px;
+	margin-right:20px;
 }
-
+.message_body{
+	border-radius: 10px;
+}
+.stream-footer{
+	margin-left: 20px;
 }
 </style>
 
 <div class="container vertical-center">
- <div id ="stream">
+ <div class="stream">
 	<%= form_for :message, url:messages_path do |f| %>
-	<%= f.text_area :body, id: "url", placeholder: "Message", class: "message_body" %>
+	<%= f.text_area :body, id: "url", placeholder: "Type Message here...", class: "message_body" %>
 	<div id="stream-list" class="follow-list">
 		<ul>
 			<% @recipients.each do |contact| %>
 				<li id="stream_item">
-					<label for="user<%=contact.id%>" >
-					<span class="list-group-item"><%= contact.name %></span><%= check_box_tag "message[user_tokens][]",contact.id, @message.users.include?(contact), id: "user#{contact.id}" %>
+					<label for="user<%=contact.id%>", class:"col-xs-12 col-sm-9">
+					<span class="list-group-item"><%= contact.name %><%= check_box_tag "message[user_tokens][]",contact.id, @message.users.include?(contact), id: "user#{contact.id}" %></span>
 			   </li>
 			</label>
 			<br>

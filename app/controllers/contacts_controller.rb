@@ -23,9 +23,11 @@ class ContactsController < ApplicationController
 
 	def update
 		@contact = Contact.find(params[:id])
-		 permitted_columns = params.require(:contact).permit(:name, :company, :email, :phone)
-		@contact.update_attributes(permitted_columns)
-		redirect_to contacts_path
+		 if @contact = Contact.update(contact_params)
+				redirect_to contacts_path
+	 	 else
+				render 'edit'
+		 end 
 	end
 
 	def destroy
